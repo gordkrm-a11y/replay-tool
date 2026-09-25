@@ -1,0 +1,22 @@
+name: build-windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
+      - name: Build
+        run: go build -o r6-replay-tool.exe .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: r6-replay-tool-windows
+          path: r6-replay-tool.exe
